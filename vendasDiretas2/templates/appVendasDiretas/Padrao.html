@@ -18,9 +18,11 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item"><a class="nav-link" href="cadastroFornecedor">Fornecedor</a></li>
+            <li class="nav-item"><a class="nav-link" href="cadastroCiclo">Ciclos</a></li>
             <li class="nav-item"><a class="nav-link" href="cadastroProduto">Produtos</a></li>
             <li class="nav-item"><a class="nav-link" href="cadastroCliente">Clientes</a></li>
             <li class="nav-item"><a class="nav-link" href="cadastroPedido">Pedidos</a></li>
+            <li class="nav-item"><a class="nav-link" href="cadastroDetalheDoPedido">DetalhesDoPedidos</a></li>
             <li class="nav-item"><a class="nav-link disabled" href="estoque">Estoque</a></li>
           </ul>
         </div>
@@ -30,6 +32,12 @@
          {% block body_block %}
             <!--Todos os conteúdos entrarão aqui-->
          {% endblock %}
+    </div>
+    
+    <div class="container">
+      {% block blocoListaFornecedores %}
+         <!--Todos os conteúdos entrarão aqui-->
+      {% endblock %}
     </div>
 
 </body>

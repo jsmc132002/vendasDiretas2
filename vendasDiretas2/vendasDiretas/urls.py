@@ -25,6 +25,8 @@ urlpatterns = [
     path("cadastroProduto", views.cadastroProduto, name='cadastroProduto'),
     path("cadastroCliente", views.cadastroCliente, name='cadastroCliente'),
     path("cadastroPedido", views.cadastroPedido, name='cadastroPedido'),
+    path("cadastroCiclo", views.cadastroCiclo, name='cadastroCiclo'),
+    path("cadastroDetalheDoPedido", views.cadastroDetalheDoPedido, name='cadastroDetalheDoPedido'),
     path('appVendasDiretas', include('appVendasDiretas.urls')),
     path('admin/', admin.site.urls),
 ]

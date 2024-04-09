@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+{% extends "appVendasDiretas/Padrao.html" %}
+{% load static %}
+    {% block body_block %}
+
+        <div class="container">
+            <div class="jumbotron">
+                <h1>Cadastro de Ciclo</h1>
+                <form method="POST">
+                    
+                    {{ form.as_p }}
+                    
+                    {% csrf_token %}
+                    
+                    <button type="submit" class="btn btn-primary">Gravar</button>
+                    {% comment %} <input type="submit" class="btn btn-primary" id=""> {% endcomment %}
+
+                </form>
+            </div>
+        </div>
+
+    {% endblock %}

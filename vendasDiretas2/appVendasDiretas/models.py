@@ -2,30 +2,66 @@ from django.db import models
 
 # Create your models here.
 class Fornecedor(models.Model):
+    idFornecedor = models.BigAutoField(primary_key=True)
     nome = models.CharField(max_length=264, unique=True)
-
+    cnpj = models.CharField(max_length=264, blank=True)
+    telefone = models.CharField(max_length=264, blank=True)
+    site = models.URLField(blank=True)
+    email = models.EmailField(blank=True)
+    
     def __str__(self):
         return self.nome
     
-class Produto(models.Model):
+
+
+class Ciclo(models.Model):
+    idCiclo = models.BigAutoField(primary_key=True)
     fornecedor = models.ForeignKey(Fornecedor, on_delete=models.CASCADE)
-    nome = models.CharField(max_length=264, unique=True)
-    url = models.URLField(unique=True)
+    ciclo = models.CharField(max_length=264, unique=True)
+    dataInicio = models.DateField(default=0)
+    dataFim = models.DateField(default=0)
 
     def __str__(self):
-        return self.nome + " " + self.fornecedor.nome
+        return self.ciclo
+    
+
+
+class Produto(models.Model):
+    idProduto = models.BigAutoField(primary_key=True)
+    fornecedor = models.ForeignKey(Fornecedor, on_delete=models.CASCADE)
+    codigo = models.CharField(max_length=264, )
+    nome = models.CharField(max_length=264, )
+    valor = models.DecimalField(max_digits=13, decimal_places=2)
+
+    def __str__(self):
+        return self.nome
+
+
 
 class Cliente(models.Model):
-    nome = models.CharField(max_length=264, unique=True)
-    area = models.CharField(max_length=264, unique=True)
+    idCliente = models.BigAutoField(primary_key=True)
+    nome = models.CharField(max_length=264)
+    alias = models.CharField(max_length=264, unique=True)
+    telefone = models.CharField(max_length=12)
+    email = models.EmailField(blank=True)
 
     def __str__(self):
-        return self.nome + " que trabalha com " + self.area
+        return self.alias
+
+
 
 class Pedido(models.Model):
-    produto = models.ForeignKey(Produto, on_delete=models.CASCADE)
+    idPedido = models.BigAutoField(primary_key=True)
+    ciclo = models.ForeignKey(Ciclo, on_delete=models.CASCADE)
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
-    data = models.DateField()
+    data = models.CharField(max_length=264)
 
     def __str__(self):
-        return self.produto + self.cliente + str(self.data)
+        return str(self.idPedido)
+
+
+
+class DetalheDoPedido(models.Model):
+    idPedido = models.ForeignKey(Pedido, on_delete=models.CASCADE)
+    produto = models.ForeignKey(Produto, on_delete=models.CASCADE)
+    quantidade = models.IntegerField(default=1)

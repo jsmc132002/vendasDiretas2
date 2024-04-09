@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-{% extends "appVendasDiretas/formPadrao.html" %}
+{% extends "appVendasDiretas/Padrao.html" %}
 {% load static %}
 
 <html lang="en">
@@ -12,29 +12,29 @@
 
     <body>
         <div class="container">
-
-
+            
             {% block body_block %}
+                
                 <div class="jumbotron">
                     <h1>Gestão de Vendas Diretas</h1>
                 </div>
 
                 <div class="djangoTwo">
-
                     {% if registrosFornecedores %}
                         <table>
                             <thead>
-                                <th>Marcas</th>
+                                <th>Marcas</th> <th>Site</th>
                             </thead>  
 
                             {% for acc in registrosFornecedores %}
-                                <tr><td>{{ acc.nome }}</td></tr>
+                                <tr><td>{{ acc.nome }}</td> <td>{{ acc.site }}</td></tr>
                             {% endfor %}
                         </table>
                     {% else %}
                         <p>Não foram encontrados registros</p>
                     {% endif %}
                 </div>
+                
             {% endblock %}
 
         </div>

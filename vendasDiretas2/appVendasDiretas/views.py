@@ -1,17 +1,29 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from appVendasDiretas.models import Fornecedor, Produto, Cliente, Pedido
-from appVendasDiretas.forms import FornecedorForm, ProdutoForm, ClienteForm, PedidoForm
+from appVendasDiretas.forms import FornecedorForm, ProdutoForm, ClienteForm, PedidoForm, CicloForm, DetalheDoPedidoForm
 
 # Create your views here.
 def index(request):
     listaFornecedores = Fornecedor.objects.order_by('nome')
     fornecedoresDict = {'registrosFornecedores': listaFornecedores}
+
     return render (request, 'appVendasDiretas/index.html', context=fornecedoresDict)
+
+
+
+def listaDeFornecedores(request):
+    listaFornecedores = Fornecedor.objects.order_by('nome')
+    fornecedoresDict = {'registrosFornecedores': listaFornecedores}
+    for x in fornecedoresDict:
+        print(fornecedoresDict)
+
+    return fornecedoresDict
+
+
 
 def cadastroFornecedor(request):
     form = FornecedorForm()
-
     if request.method == 'POST':
         form = FornecedorForm(request.POST)
 
@@ -19,18 +31,83 @@ def cadastroFornecedor(request):
             form.save(commit=True)
             return index(request)
         else:
-            print('Formulário inválido')
+            print('Formulário fornecedor inválido')
 
-    return render(request, 'appVendasDiretas/formFornecedor.html',{'form':form})
+    return render(request, 'appVendasDiretas/formCadastroFornecedor.html',{'form':form})
+
+
 
 def cadastroProduto(request):
     form = ProdutoForm()
-    return render(request, 'appVendasDiretas/formProduto.html',{'form':form})
+    if request.method =='POST':
+        form = ProdutoForm(request.POST)
+    
+        if form.is_valid():
+            form.save(commit=True)
+            return index(request)
+        else:
+            print('Formulário produto inválido')
+ 
+    return render(request, 'appVendasDiretas/formCadastroProduto.html',{'form':form})
+
+
 
 def cadastroCliente(request):
     form = ClienteForm()
-    return render(request, 'appVendasDiretas/formCliente.html',{'form':form})
+    if request.method == 'POST':
+        form = ClienteForm(request.POST)
+
+        if form.is_valid():
+            form.save(commit=True)
+            return index(request)
+        else:
+            print('Formulário cliente inválido')    
+
+    return render(request, 'appVendasDiretas/formCadastroCliente.html',{'form':form})
+
+
+
+def cadastroCiclo(request):
+    form = CicloForm()
+    if request.method == 'POST':
+        form = CicloForm(request.POST)
+
+        if form.is_valid():
+            form.save(commit=True)
+            return index(request)
+        else:
+            print('Formulário ciclo inválido')
+
+    return render(request, 'appVendasDiretas/formCadastroCiclo.html',{'form':form})
+
+
 
 def cadastroPedido(request):
     form = PedidoForm()
-    return render(request, 'appVendasDiretas/formPedido.html',{'form':form})
+    if request.method == 'POST':
+        form = PedidoForm(request.POST)
+
+        if form.is_valid():
+            form.save(commit=True)
+            return index(request)
+        else:
+            print('Formulário pedido inválido')
+
+    return render(request, 'appVendasDiretas/formCadastroPedido.html',{'form':form})
+
+
+def cadastroDetalheDoPedido(request):
+    form = DetalheDoPedidoForm()
+    if request.method == 'POST':
+        form = DetalheDoPedidoForm(request.POST)
+
+        if form.is_valid():
+            form.save(commit=True)
+            return index(request)
+        else:
+            print('Formulário Detalhe do pedido inválido')   
+
+    return render(request, 'appVendasDiretas/formCadastroDetalheDoPedido.html',{'form':form})
+
+
+

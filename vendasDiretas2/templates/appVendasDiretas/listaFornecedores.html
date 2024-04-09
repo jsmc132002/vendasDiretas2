@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+{% extends "appVendasDiretas/formPadrao.html" %}
+{% load static %}
+
+    {% block blocoListaFornecedores %}
+        <div class="container">
+            {% if listaDeFornecedores %}
+                <table>
+                    <thead>
+                        <th>Marcas</th> <th>Site</th>
+                    </thead>  
+
+                    {% for acc in listaDeFornecedores %}
+                        <tr><td>{{ acc.nome }}</td> <td>{{ acc.site }}</td></tr>
+                    {% endfor %}
+                </table>
+            {% else %}
+                <p>Não foram encontrados registros de fornecedor</p>
+            {% endif %}
+        </div>
+    {% endblock %}
